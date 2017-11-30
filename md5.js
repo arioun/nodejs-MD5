@@ -1,41 +1,42 @@
 (function(){
-  var crypt = require('crypt'),
-      utf8 = require('charenc').utf8,
-      isBuffer = require('is-buffer'),
+  var crypt = require('crypt'),//用于加密和哈希的工具
+      utf8 = require('charenc').utf8,//提供加密字符编码实用程序
+      isBuffer = require('is-buffer'),//确定一个对象是否是一个Buffer
       bin = require('charenc').bin,
 
-  // The core
+  // MD5核心函数
   md5 = function (message, options) {
-    // Convert to byte array
-    if (message.constructor == String)
-      if (options && options.encoding === 'binary')
-        message = bin.stringToBytes(message);
+    // 转化为字节数组
+    if (message.constructor == String)//如果是string类型
+      if (options && options.encoding === 'binary')//如果option是二进制
+        message = bin.stringToBytes(message);//用bin编码转化为二进制存储到message
       else
-        message = utf8.stringToBytes(message);
-    else if (isBuffer(message))
-      message = Array.prototype.slice.call(message, 0);
-    else if (!Array.isArray(message))
-      message = message.toString();
-    // else, assume byte array already
-
-    var m = crypt.bytesToWords(message),
+        message = utf8.stringToBytes(message);//用utf8编码转化为二进制存储到message
+    else if (isBuffer(message))//如果是buffer
+      message = Array.prototype.slice.call(message, 0);//将message对象转化为数组
+    else if (!Array.isArray(message))//如果不是数组
+      message = message.toString();//将message对象转化为字符串存储到message
+    //否则，假定已经存在字节数组
+    //初始化变量
+    var m = crypt.bytesToWords(message),//将message转化成字符
         l = message.length * 8,
         a =  1732584193,
         b = -271733879,
         c = -1732584194,
         d =  271733878;
 
-    // Swap endian
+    // swap endian 交换字节顺序
     for (var i = 0; i < m.length; i++) {
       m[i] = ((m[i] <<  8) | (m[i] >>> 24)) & 0x00FF00FF |
              ((m[i] << 24) | (m[i] >>>  8)) & 0xFF00FF00;
-    }
+    }//将m[i]转为二进制，左移8 右移24位 然后按位或运算(相对应的每位至少有一个为1，则为1)
+    //
 
-    // Padding
+    // 填充 使其位长对512求余的结果等于448
     m[l >>> 5] |= 0x80 << (l % 32);
     m[(((l + 64) >>> 9) << 4) + 14] = l;
 
-    // Method shortcuts
+    // 方法命名
     var FF = md5._ff,
         GG = md5._gg,
         HH = md5._hh,
@@ -125,11 +126,11 @@
     return crypt.endian([a, b, c, d]);
   };
 
-  // Auxiliary functions
+  // 辅助功能
   md5._ff  = function (a, b, c, d, x, s, t) {
     var n = a + (b & c | ~b & d) + (x >>> 0) + t;
     return ((n << s) | (n >>> (32 - s))) + b;
-  };
+  };//~按位取反
   md5._gg  = function (a, b, c, d, x, s, t) {
     var n = a + (b & d | c & ~d) + (x >>> 0) + t;
     return ((n << s) | (n >>> (32 - s))) + b;
@@ -143,18 +144,19 @@
     return ((n << s) | (n >>> (32 - s))) + b;
   };
 
-  // Package private blocksize
+  // 打包私有块大小
   md5._blocksize = 16;
   md5._digestsize = 16;
-
+//暴露一个函数
   module.exports = function (message, options) {
     if (message === undefined || message === null)
       throw new Error('Illegal argument ' + message);
 
-    var digestbytes = crypt.wordsToBytes(md5(message, options));
+    var digestbytes = crypt.wordsToBytes(md5(message, options));//递归调用MD5函数，并转化成二进制
     return options && options.asBytes ? digestbytes :
         options && options.asString ? bin.bytesToString(digestbytes) :
         crypt.bytesToHex(digestbytes);
+    //若option为二进制，返回digestbytes ，若不是，则判断是否为string，是则返回string类型，不是则返回十六进制类型
   };
 
 })();
