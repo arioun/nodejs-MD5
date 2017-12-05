@@ -2,7 +2,7 @@
 
 [![build status](https://secure.travis-ci.org/pvorb/node-md5.png)](http://travis-ci.org/pvorb/node-md5) [![info badge](https://img.shields.io/npm/dt/md5.svg)](http://npm-stat.com/charts.html?package=md5)
 
-一个用MD5查看信息的哈希值的JavaScript方法.
+一个用MD5显示加密信息的JavaScript方法.
 
 ## 安装
 
