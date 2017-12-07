@@ -2,7 +2,7 @@
 ### 一、仓库展示
  名称: MD5  
  功能：用于显示MD5信息的JavaScript程序。  
- 地址：[nodejs-MD5](http://xuejiawei1.github.io/nodejs-MD5)  
+ 地址：[nodejs-MD5](http://xuejiawei1.github.io/nodejs-MD5/)  
  #### 仓库包含文件及作用  
  > README.md :程序介绍的markdown文档  
  > md5.js ：MD5程序实现的主代码  
@@ -12,7 +12,7 @@
  > .gitignore : 排除不必要的项目文件  
  > .travis.yml : 持续集成的配置文件  
    
- > demo ： index.html ：可以显示文件的MD5信息    
+ > demo ： index.html ：可以显示文件的MD5信息  [show-MD5](https://xuejiawei1.github.io/nodejs-MD5/demo/index.html)  
            use.js : 使用MD5方法获取“message”的MD5信息   
            use-buf.js : 用buffer方法获取“example.txt”的MD5信息     
  > dist : md5.min.js : md5的前端js文件  
