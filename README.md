@@ -2,7 +2,7 @@
 
 [![build status](https://secure.travis-ci.org/pvorb/node-md5.png)](http://travis-ci.org/pvorb/node-md5) [![info badge](https://img.shields.io/npm/dt/md5.svg)](http://npm-stat.com/charts.html?package=md5)
 
-一个用MD5显示加密信息的JavaScript方法.
+一个用于显示MD5信息的JavaScript程序.
 
 ## 安装
 
