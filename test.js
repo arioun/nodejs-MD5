@@ -3,7 +3,7 @@ var assert = require('assert');
 
 describe('md5', function () {
 
-  it('未定义的值应该报错', function() {
+  it('如果输入‘undefined’应该报错', function() {
     assert.throws(function() {
       md5(undefined);
     });
@@ -13,7 +13,7 @@ describe('md5', function () {
     assert.equal('5e543256c480ac577d30f76f9120eb74', md5('undefined'));
   });
 
-  it('应该报错： `null`', function() {
+  it('如果输入`null`应该报错', function() {
     assert.throws(function() {
       md5(null);
     });
@@ -23,7 +23,7 @@ describe('md5', function () {
     assert.equal('78e731027d8fd50ed642340b7c9a63b3', md5('message'));
   });
 
-  it('不应该返回同样的哈希值随机数两次', function() {
+  it('输入两次随机数不应该返回同样的散列值', function() {
     var msg1 = Math.floor((Math.random() * 100000) + 1) + (new Date).getTime();
     var msg2 = Math.floor((Math.random() * 100000) + 1) + (new Date).getTime();
 
