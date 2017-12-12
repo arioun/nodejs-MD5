@@ -18,7 +18,7 @@
       message = message.toString();//将message对象转化为字符串存储到message
     //否则，假定已经存在字节数组
     //初始化变量
-    var m = crypt.bytesToWords(message),//将message从字节转化成字母
+    var m = crypt.bytesToWords(message),//将message转化为字符
         l = message.length * 8,
         a =  1732584193,
         b = -271733879,
